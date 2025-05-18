@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 /* eslint-disable react/prop-types */
 import { useState } from "react";
 
@@ -38,7 +37,6 @@ const Order = ({ cartItems, onPaymentSuccess, onCancel, address, setAddress }) =
           value={address}
           onChange={(e) => setAddress(e.target.value)}
 />
-
           <div className="max-h-32 overflow-y-auto mb-2">
             {cartItems.map((item) => (
               <div key={item.id} className="flex justify-between py-1">
@@ -52,14 +50,10 @@ const Order = ({ cartItems, onPaymentSuccess, onCancel, address, setAddress }) =
             <span className="text-xl font-bold text-rose-900">Rp. {total}</span>
           </div>
         </div>
-        
-        {/* Tab Metode Pembayaran */}
+
         <div className="flex gap-2 mb-4">
-          
-            <button
-              type="button"
+            <div
               className='flex-1 py-2 px-3 rounded-lg border border-rose-500 bg-rose-50'
-              onClick={() => setPaymentMethod()}
             >
               <div className="flex items-center justify-center gap-2">
                  
@@ -68,8 +62,7 @@ const Order = ({ cartItems, onPaymentSuccess, onCancel, address, setAddress }) =
                   </svg>
                 <span>Transfer Bank</span>
               </div>
-            </button>
-        
+            </div>
         </div>
         
      

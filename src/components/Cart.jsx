@@ -65,8 +65,7 @@ const Cart = ({ cartItems, setQuantity, setCartItems, isConfirmOrder, setIsConfi
           </div>
         )}
       </div>
-
-      {/* Komponen Payment */}
+    
       {showPayment && (
         <Order
           cartItems={cartItems}
@@ -77,7 +76,7 @@ const Cart = ({ cartItems, setQuantity, setCartItems, isConfirmOrder, setIsConfi
         />
       )}
 
-      {/* Komponen OrderConfirmed */}
+    
       {isConfirmOrder && (
         <OrderConfirmed
           cartItems={cartItems}
