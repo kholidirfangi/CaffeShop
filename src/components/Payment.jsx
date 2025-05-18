@@ -25,6 +25,7 @@ const Payment = ({ cartItems, onPaymentSuccess, onCancel }) => {
         {/* Ringkasan Order */}
         <div className="bg-rose-50 rounded-lg p-4 mb-5">
           <h2 className="font-bold text-rose-900 mb-2">Ringkasan Order</h2>
+          <textarea name="address" id="address" className="h-32 border-2 rounded-lg w-full p-2 block" placeholder="masukkan alamat pengiriman.."/>
           <div className="max-h-32 overflow-y-auto mb-2">
             {cartItems.map((item) => (
               <div key={item.id} className="flex justify-between py-1">

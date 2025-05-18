@@ -59,7 +59,7 @@ const Cart = ({ cartItems, setQuantity, setCartItems, isConfirmOrder, setIsConfi
               onClick={handleConfirmOrder}
               className="bg-red text-rose-100 rounded-full p-3 w-full text-center mt-5 hover:bg-rose-900 transition-colors duration-300"
             >
-              Bayar
+              Buat Pesanan
             </button>
           </div>
         )}
