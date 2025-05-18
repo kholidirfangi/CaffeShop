@@ -2,7 +2,7 @@
 /* eslint-disable react/prop-types */
 import { useState } from "react";
 
-const Payment = ({ cartItems, onPaymentSuccess, onCancel, address, setAddress }) => {
+const Order = ({ cartItems, onPaymentSuccess, onCancel, address, setAddress }) => {
   const [isProcessing, setIsProcessing] = useState(false);
 
   // Menghitung total harga
@@ -14,7 +14,7 @@ const Payment = ({ cartItems, onPaymentSuccess, onCancel, address, setAddress })
     alert("Mohon masukkan alamat pengiriman.");
     return;
   }
-  
+
     setIsProcessing(true);
     setTimeout(() => {
       setIsProcessing(false);
@@ -115,4 +115,4 @@ const Payment = ({ cartItems, onPaymentSuccess, onCancel, address, setAddress })
   );
 };
 
-export default Payment;
+export default Order;

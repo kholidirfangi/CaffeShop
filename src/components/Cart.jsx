@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import CartList from './CartList';
-import Payment from './Payment';
 import OrderConfirmed from './OrderConfirmed';
+import Order from './Order';
 
 /* eslint-disable react/prop-types */
 const Cart = ({ cartItems, setQuantity, setCartItems, isConfirmOrder, setIsConfirmOrder, address, setAddress }) => {
@@ -68,7 +68,7 @@ const Cart = ({ cartItems, setQuantity, setCartItems, isConfirmOrder, setIsConfi
 
       {/* Komponen Payment */}
       {showPayment && (
-        <Payment
+        <Order
           cartItems={cartItems}
           onPaymentSuccess={handlePaymentSuccess}
           onCancel={handleCancelPayment}
