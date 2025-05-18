@@ -4,7 +4,7 @@ import Payment from './Payment';
 import OrderConfirmed from './OrderConfirmed';
 
 /* eslint-disable react/prop-types */
-const Cart = ({ cartItems, setQuantity, setCartItems, isConfirmOrder, setIsConfirmOrder }) => {
+const Cart = ({ cartItems, setQuantity, setCartItems, isConfirmOrder, setIsConfirmOrder, address, setAddress }) => {
   const [showPayment, setShowPayment] = useState(false);
 
   const totalQuantity = cartItems.reduce(
@@ -19,10 +19,11 @@ const Cart = ({ cartItems, setQuantity, setCartItems, isConfirmOrder, setIsConfi
     }
   };
 
-  const handlePaymentSuccess = () => {
+  const handlePaymentSuccess = (address) => {
     // Setelah pembayaran berhasil, tampilkan halaman konfirmasi order
     setShowPayment(false);
     setIsConfirmOrder(true);
+    console.log("Alamat dari Payment:", address);
   };
 
   const handleCancelPayment = () => {
@@ -71,6 +72,8 @@ const Cart = ({ cartItems, setQuantity, setCartItems, isConfirmOrder, setIsConfi
           cartItems={cartItems}
           onPaymentSuccess={handlePaymentSuccess}
           onCancel={handleCancelPayment}
+          address={address}
+          setAddress={setAddress}
         />
       )}
 

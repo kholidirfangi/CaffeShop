@@ -7,6 +7,7 @@ const OrderConfirmed = ({
   setQuantity,
   setCartItems,
   setIsConfirmOrder,
+  address
 }) => {
   const receiptRef = useRef(null);
 
@@ -30,58 +31,73 @@ const OrderConfirmed = ({
   };
 
   // Fungsi sederhana untuk mencetak struk PDF
-  const cetakStruk = () => {
-    const doc = new jsPDF();
-    
-    // Header struk
-    doc.setFontSize(16);
-    doc.text("STRUK PEMBELIAN", 105, 20, { align: "center" });
-    
-    // Tanggal
-    const today = new Date().toLocaleDateString('id-ID');
-    doc.setFontSize(10);
-    doc.text(`Tanggal: ${today}`, 105, 30, { align: "center" });
-    
-    // Garis pemisah
-    doc.line(20, 35, 190, 35);
-    
-    // Header tabel
-    doc.setFont(undefined, 'bold');
-    doc.text("Item", 20, 45);
-    doc.text("Qty", 100, 45);
-    doc.text("Harga", 130, 45);
-    doc.text("Total", 170, 45);
-    
-    // Data tabel
-    doc.setFont(undefined, 'normal');
-    let y = 55;
-    
-    cartItems.forEach(item => {
-      doc.text(item.name, 20, y);
-      doc.text(`${item.quantity}x`, 100, y);
-      doc.text(`Rp. ${item.price}`, 130, y);
-      doc.text(`Rp. ${calculateTotalPerItem(item.id)}`, 170, y);
-      y += 10;
-    });
-    
-    // Garis total
-    doc.line(20, y, 190, y);
+  // Fungsi sederhana untuk mencetak struk PDF
+const cetakStruk = () => {
+  const doc = new jsPDF();
+  
+  // Header struk
+  doc.setFontSize(16);
+  doc.text("STRUK PEMBELIAN", 105, 20, { align: "center" });
+
+  // Tanggal
+  const today = new Date().toLocaleDateString('id-ID');
+  doc.setFontSize(10);
+  doc.text(`Tanggal: ${today}`, 105, 30, { align: "center" });
+
+  // Alamat Pengiriman
+  doc.setFontSize(10);
+  doc.setFont(undefined, 'bold');
+  doc.text("Alamat Pengiriman:", 20, 40);
+  doc.setFont(undefined, 'normal');
+
+  // Menangani alamat panjang yang perlu dibungkus
+  const addressLines = doc.splitTextToSize(address, 160);
+  doc.text(addressLines, 20, 45);
+
+  // Hitung posisi Y setelah alamat
+  let y = 45 + addressLines.length * 7;
+
+  // Garis pemisah
+  doc.line(20, y, 190, y);
+  y += 10;
+
+  // Header tabel
+  doc.setFont(undefined, 'bold');
+  doc.text("Item", 20, y);
+  doc.text("Qty", 100, y);
+  doc.text("Harga", 130, y);
+  doc.text("Total", 170, y);
+
+  // Data tabel
+  doc.setFont(undefined, 'normal');
+  y += 10;
+  cartItems.forEach(item => {
+    doc.text(item.name, 20, y);
+    doc.text(`${item.quantity}x`, 100, y);
+    doc.text(`Rp. ${item.price}`, 130, y);
+    doc.text(`Rp. ${calculateTotalPerItem(item.id)}`, 170, y);
     y += 10;
-    
-    // Total
-    doc.setFont(undefined, 'bold');
-    doc.text("Total Pembayaran:", 130, y);
-    doc.text(`Rp. ${calculateTotal()}`, 170, y);
-    
-    // Footer
-    y += 20;
-    doc.setFont(undefined, 'normal');
-    doc.setFontSize(10);
-    doc.text("Terima kasih telah berbelanja", 105, y, { align: "center" });
-    
-    // Simpan PDF
-    doc.save("struk-pembelian.pdf");
-  };
+  });
+
+  // Garis total
+  doc.line(20, y, 190, y);
+  y += 10;
+
+  // Total
+  doc.setFont(undefined, 'bold');
+  doc.text("Total Pembayaran:", 130, y);
+  doc.text(`Rp. ${calculateTotal()}`, 170, y);
+
+  // Footer
+  y += 20;
+  doc.setFont(undefined, 'normal');
+  doc.setFontSize(10);
+  doc.text("Terima kasih telah berbelanja", 105, y, { align: "center" });
+
+  // Simpan PDF
+  doc.save("struk-pembelian.pdf");
+};
+
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-80 z-50">
@@ -93,6 +109,10 @@ const OrderConfirmed = ({
         <p className="text-rose-500 red-hat-text-bold">
           Kami harap Anda menikmati makanannya
         </p>
+        <div className="bg-rose-50 p-4 rounded-lg mb-4">
+        <h3 className="font-medium text-rose-900 mb-2">Alamat Pengiriman</h3>
+        <p className="text-sm text-rose-700">{address}</p>
+      </div>
         <div ref={receiptRef}>
           <ul className="rounded-lg bg-rose-50 my-5 overflow-hidden">
             {cartItems.map((item) => (

@@ -2,7 +2,7 @@
 /* eslint-disable react/prop-types */
 import { useState } from "react";
 
-const Payment = ({ cartItems, onPaymentSuccess, onCancel }) => {
+const Payment = ({ cartItems, onPaymentSuccess, onCancel, address, setAddress }) => {
   const [isProcessing, setIsProcessing] = useState(false);
 
   // Menghitung total harga
@@ -10,6 +10,11 @@ const Payment = ({ cartItems, onPaymentSuccess, onCancel }) => {
 
   // Proses pembayaran
   const handlePay = () => {
+    if (!address.trim()) {
+    alert("Mohon masukkan alamat pengiriman.");
+    return;
+  }
+  
     setIsProcessing(true);
     setTimeout(() => {
       setIsProcessing(false);
@@ -25,7 +30,15 @@ const Payment = ({ cartItems, onPaymentSuccess, onCancel }) => {
         {/* Ringkasan Order */}
         <div className="bg-rose-50 rounded-lg p-4 mb-5">
           <h2 className="font-bold text-rose-900 mb-2">Ringkasan Order</h2>
-          <textarea name="address" id="address" className="h-32 border-2 rounded-lg w-full p-2 block" placeholder="masukkan alamat pengiriman.."/>
+          <textarea
+          name="address"
+          id="address"
+          className="h-32 border-2 rounded-lg w-full p-2 block"
+          placeholder="masukkan alamat pengiriman.."
+          value={address}
+          onChange={(e) => setAddress(e.target.value)}
+/>
+
           <div className="max-h-32 overflow-y-auto mb-2">
             {cartItems.map((item) => (
               <div key={item.id} className="flex justify-between py-1">

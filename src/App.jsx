@@ -7,6 +7,7 @@ const App = () => {
   const [cartItems, setCartItems] = useState([]);
   const [quantity, setQuantity] = useState({});
   const [isConfirmOrder, setIsConfirmOrder] = useState(false);
+  const [address, setAddress] = useState('')
   return (
     <main className="p-6 bg-rose-50 flex flex-col md:flex-row gap-5 md:p-14">
       <div className="menu-list-container md:w-3/4">
@@ -26,6 +27,8 @@ const App = () => {
         setQuantity={setQuantity}
         isConfirmOrder={isConfirmOrder}
         setIsConfirmOrder={setIsConfirmOrder}
+        address={address}
+        setAddress={setAddress}
       />
       {isConfirmOrder && (
         <OrderConfirmed
@@ -33,6 +36,7 @@ const App = () => {
           setCartItems={setCartItems}
           setQuantity={setQuantity}
           setIsConfirmOrder={setIsConfirmOrder}
+          address={address}
         />
       )}
     </main>
